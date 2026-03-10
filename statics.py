@@ -1,4 +1,8 @@
 class StaticSource:
+    GITEE_TOKEN = ""
+    GITEE_REPO_OWNER = ""
+    GITEE_REPO_NAME = "xionganCleanHubDownload"
+
     @staticmethod
     def get_current_version() -> str:
         """
@@ -17,5 +21,12 @@ class StaticSource:
 
     @staticmethod
     def get_gitee_token() -> str:
-        tokens = "3d500aabc2e64f9f80df3eb9fe916712"
-        return tokens
+        return StaticSource.GITEE_TOKEN
+
+    @staticmethod
+    def get_gitee_repo_owner() -> str:
+        return StaticSource.GITEE_REPO_OWNER
+
+    @staticmethod
+    def get_gitee_repo_name() -> str:
+        return StaticSource.GITEE_REPO_NAME

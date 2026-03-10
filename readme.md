@@ -95,15 +95,15 @@ python main.py
 
 主要文件说明：
 
-- [main.py](/Users/chao/gitee/xiongan-clean-hub/main.py)：主窗口、菜单、导入流程、清标入口
-- [read_data.py](/Users/chao/gitee/xiongan-clean-hub/read_data.py)：XML 读取、基础解密逻辑
-- [utils.py](/Users/chao/gitee/xiongan-clean-hub/utils.py)：文档生成、比对和各类工具函数
-- [result.py](/Users/chao/gitee/xiongan-clean-hub/result.py)：清标结果页、中标分析页、导出逻辑
-- [updater.py](/Users/chao/gitee/xiongan-clean-hub/updater.py)：版本下载与更新窗口
-- [statics.py](/Users/chao/gitee/xiongan-clean-hub/statics.py)：版本号、软件名等静态配置
-- [app_paths.py](/Users/chao/gitee/xiongan-clean-hub/app_paths.py)：资源路径解析
-- [对比清单差异性.py](/Users/chao/gitee/xiongan-clean-hub/对比清单差异性.py)：投标清单对齐辅助逻辑
-- [icons](/Users/chao/gitee/xiongan-clean-hub/icons)：应用图标与界面资源
+- `main.py`：主窗口、菜单、导入流程、清标入口
+- `read_data.py`：XML 读取、基础解密逻辑
+- `utils.py`：文档生成、比对和各类工具函数
+- `result.py`：清标结果页、中标分析页、导出逻辑
+- `updater.py`：版本下载与更新窗口
+- `statics.py`：版本号、软件名等静态配置
+- `app_paths.py`：资源路径解析
+- `对比清单差异性.py`：投标清单对齐辅助逻辑
+- `icons`：应用图标与界面资源
 
 仓库根目录中还保留了一些历史脚本或辅助脚本，例如 `build_release.py`、`new.py`、`pngjpeg.py`、`其他暂时用不到的代码.py`。这些文件不属于主程序运行链路。
 
@@ -111,9 +111,9 @@ python main.py
 
 项目里已经包含 macOS 打包相关脚本：
 
-- [MyApp.spec](/Users/chao/gitee/xiongan-clean-hub/MyApp.spec)
-- [build_release.py](/Users/chao/gitee/xiongan-clean-hub/build_release.py)
-- [make_dmg.sh](/Users/chao/gitee/xiongan-clean-hub/make_dmg.sh)
+- `MyApp.spec`
+- `build_release.py`
+- `make_dmg.sh`
 
 macOS 打包思路大致是：
 
@@ -127,7 +127,7 @@ python build_release.py
 - macOS 下可用的 `hdiutil`
 - 用于设置 DMG 布局的 `osascript`
 
-注意：仓库中的打包脚本更偏向作者本机工作流，不是完全通用的一键跨平台发布方案。
+注意：仓库中的打包脚本更偏向本地工作流，不是完全通用的一键跨平台发布方案。
 
 ## 开发说明
 
@@ -162,6 +162,4 @@ python -m py_compile main.py utils.py result.py read_data.py
 
 ## 联系方式
 
-- 作者：Willcha
-- 邮箱：wl201808087@icloud.com
-- 微信：W851172873
+仓库已移除个人联系方式。如需协作，请使用代码托管平台的 issue 或 pull request。

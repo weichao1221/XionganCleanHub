@@ -35,7 +35,7 @@ class AboutPage(QDialog):
         self.icon_leble.setFixedSize(50, 50)
         self.icon_leble.setScaledContents(True)
         self.version_label = QLabel(f"版本：{self.show_msg}（2025年10月25日） {self.software_version}")
-        self.copyright_label = QLabel("Copyright © 2025 河北雄安空指针电商工作室（个人独资）")
+        self.copyright_label = QLabel("Copyright © 2025 XionganCleanHub Contributors")
         self.layout = QVBoxLayout()
         middlelayout.addWidget(self.icon_leble)
         self.layout.addLayout(middlelayout)

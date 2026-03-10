@@ -1153,7 +1153,7 @@ class HelpDialog(QDialog):
         page = QWidget()
         layout = QVBoxLayout(page)
 
-        title = QLabel("联系我")
+        title = QLabel("联系信息")
         title.setFont(QFont("Arial", 14, QFont.Weight.Bold))
         layout.addWidget(title)
 
@@ -1161,7 +1161,7 @@ class HelpDialog(QDialog):
         info.setReadOnly(True)
         info.setFont(QFont("Arial", 13))
         info.setFixedHeight(100)  # 限制高度为100像素，大约5行文本
-        info.setText("邮箱: wl201808087@icloud.com\n电话: 176 0040 9422\n微信: W851172873")
+        info.setText("仓库已移除个人联系方式。")
 
         layout.addWidget(info)
         layout.addStretch()

@@ -225,6 +225,6 @@ class DownloadWindow(QDialog):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    w = DownloadWindow(download_dir=r"/Users/chao/Downloads")
+    w = DownloadWindow(download_dir=os.path.join(os.path.expanduser("~"), "Downloads"))
     w.show()
     app.exec()

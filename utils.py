@@ -489,8 +489,8 @@ class about_word():
         about_word.fengmian_doc1(doc, f"控制价编制报告", 22)
         for i in range(8):
             about_word.Normal_doc(doc, "")
-        about_word.fengmian_doc1(doc, "委托单位：中国雄安集团生态建设投资有限公司", 16)
-        about_word.fengmian_doc1(doc, "编制单位：北京北咨工程咨询有限公司", 16)
+        about_word.fengmian_doc1(doc, "委托单位：已匿名化", 16)
+        about_word.fengmian_doc1(doc, "编制单位：已匿名化", 16)
         about_word.fengmian_doc1(doc, f"{time_now}", 16)
 
     @staticmethod
@@ -507,8 +507,8 @@ class about_word():
         about_word.fengmian_doc1(doc, f"{qishu}", 18)
         for i in range(8):
             about_word.Normal_doc(doc, "")
-        about_word.fengmian_doc1(doc, "委托单位：中国雄安集团生态建设投资有限公司", 16)
-        about_word.fengmian_doc1(doc, "编制单位：北京北咨工程咨询有限公司", 16)
+        about_word.fengmian_doc1(doc, "委托单位：已匿名化", 16)
+        about_word.fengmian_doc1(doc, "编制单位：已匿名化", 16)
         about_word.fengmian_doc1(doc, f"{time_now}", 16)
 
     @staticmethod
@@ -534,7 +534,7 @@ class about_word():
 
         about_word.Normal_doc(doc, "")
         about_word.Normal_doc(doc, f"委托单位：")
-        about_word.Normal_doc(doc, "报告编制单位：北京北咨工程咨询有限公司")
+        about_word.Normal_doc(doc, "报告编制单位：已匿名化")
         about_word.Normal_doc(doc, "")
 
     @staticmethod
@@ -690,7 +690,7 @@ class functions:
     def get_base_info_path():
         # 应用名称和公司名称（可自定义）
         app_name = "Qingbiao"
-        app_author = "Willchalighter"
+        app_author = "XionganCleanHub"
 
         # 获取用户数据目录
         user_data_dir = appdirs.user_data_dir(app_name, app_author)
@@ -704,7 +704,7 @@ class functions:
     def get_base_info_data():
         # 应用名称和公司名称（可自定义）
         app_name = "Qingbiao"
-        app_author = "Willchalighter"
+        app_author = "XionganCleanHub"
 
         # 获取用户数据目录
         user_data_dir = appdirs.user_data_dir(app_name, app_author)
@@ -724,7 +724,11 @@ class functions:
     def get_new_version_download_url():
         platform_info = functions.get_platform()
         software_version = functions.get_latest_version()
-        gitee_base_url = "https://gitee.com/weichao1221/xionganCleanHubDownload/releases/download"
+        repo_owner = StaticSource.get_gitee_repo_owner()
+        repo_name = StaticSource.get_gitee_repo_name()
+        if not repo_owner or not software_version:
+            return ""
+        gitee_base_url = f"https://gitee.com/{repo_owner}/{repo_name}/releases/download"
         platform_name = ""
         if platform_info == "win":
             platform_name = f"xa_qingbiao_win.exe"
@@ -736,7 +740,11 @@ class functions:
     @staticmethod
     def get_latest_version():
         tokens = StaticSource.get_gitee_token()
-        url = "https://gitee.com/api/v5/repos/weichao1221/xionganCleanHubDownload/releases/latest"
+        repo_owner = StaticSource.get_gitee_repo_owner()
+        repo_name = StaticSource.get_gitee_repo_name()
+        if not repo_owner:
+            return ""
+        url = f"https://gitee.com/api/v5/repos/{repo_owner}/{repo_name}/releases/latest"
 
         headers = {"Authorization": f"token {tokens}"}
         try:
@@ -1410,7 +1418,7 @@ class functions:
     @staticmethod
     def get_update_temp_dir():
         app_name = "Qingbiao"
-        app_author = "Willchalighter"
+        app_author = "XionganCleanHub"
         user_data_dir = appdirs.user_data_dir(app_name, app_author)
         temp_dir = os.path.join(user_data_dir, "update_temp")
         os.makedirs(temp_dir, exist_ok=True)
@@ -1418,8 +1426,8 @@ class functions:
 
     @staticmethod
     def auto_update_mac_app(dmg_url):
-        tokens = "3d500aabc2e64f9f80df3eb9fe916712"
-        download_dir = r"/Users/chao/Downloads"
+        tokens = StaticSource.get_gitee_token()
+        download_dir = os.path.join(os.path.expanduser("~"), "Downloads")
         headers = {"Authorization": f"token {tokens}"}
 
         try:
@@ -1466,7 +1474,7 @@ class functions:
 
     # 简化版安装脚本
     APP_NAME="雄安清标.app"
-    DMG_FILE="/Users/chao/Downloads/xa_qingbiao_mac_apple_silicon.dmg"
+    DMG_FILE="$HOME/Downloads/xa_qingbiao_mac_apple_silicon.dmg"
     MOUNT_POINT="/Volumes/雄安清标"
 
     echo "开始安装应用程序..."
