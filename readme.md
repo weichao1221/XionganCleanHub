@@ -1,0 +1,167 @@
+# 雄安清标
+
+一个基于 `PySide6` 的本地桌面清标辅助工具，用于读取雄安新区工程量清单相关 XML 文件，完成招标清单、控制价和投标文件的导入、对比、清标分析与结果导出。
+
+项目当前已调整为开源免费版本，不再包含注册、支付、授权校验等限制逻辑。
+
+当前代码版本：`0.0.2`
+
+## 项目特点
+
+- 开源免费，可直接使用
+- 支持 `.XAZB` / `.XAXJ` / `.XATB` 数据解析
+- 支持清标分析、中标分析、Excel 导出
+- 支持将源文件一键转写为多 Sheet Excel
+- 本地运行，不依赖云端服务完成核心清标流程
+
+## 功能概览
+
+- 导入招标清单、招标控制价、投标文件
+- 支持单个导入、批量导入、按文件夹导入投标文件
+- 解析 `.XAZB`、`.XAXJ`、`.XATB` 等 XML 格式数据
+- 清标分析：
+  - 总价限价检查
+  - 单价为负值检查
+  - 单价为 0 检查
+  - 清单不一致项比对
+  - 单价偏差率分析
+  - 硬件锁信息检查
+- 中标分析与单项对比
+- 导出 Excel 结果
+- 数据转写：
+  - 支持将 `.XATB` / `.XAZB` / `.XAXJ` 转写为 Excel
+  - 自动拆分为文件概览、项目信息、招标信息、投标信息、控制价信息、分部清单、措施清单、其他项目等 Sheet
+- 支持保存/读取中间数据
+- 包含数据转写、检查更新等辅助能力
+
+## 技术栈
+
+- Python 3
+- PySide6
+- lxml
+- openpyxl
+- python-docx
+- pandas
+- requests
+
+## 快速开始
+
+### 运行环境
+
+- Python `3.10+`
+- macOS / Windows
+- Linux 可以运行，但部分界面与打包流程仍以 macOS / Windows 使用为主
+
+### 安装依赖
+
+```bash
+pip install -r requirements.txt
+```
+
+如果你使用虚拟环境，推荐先创建并激活虚拟环境再安装依赖。
+
+### 启动程序
+
+```bash
+python main.py
+```
+
+### 基本使用流程
+
+1. 导入招标清单文件
+2. 导入招标控制价文件
+3. 导入一个或多个投标文件
+4. 设置偏差率
+5. 执行清标或中标分析
+6. 导出结果
+
+## 适用场景
+
+这个项目更偏向一个业务型本地工具，而不是通用库。适合下面这类使用方式：
+
+- 本地打开工程量清单文件做快速核查
+- 对多个投标文件做一致性和偏差对比
+- 生成清标结果作为人工复核的辅助材料
+
+## 支持的输入文件
+
+- `.XAZB`：招标清单
+- `.XAXJ`：招标控制价
+- `.XATB`：投标文件
+
+这些文件本质上是 XML 结构，项目当前以雄安新区相关业务格式为目标做了解析，不保证兼容其他地区或其他软件导出的全部变体。
+
+## 项目结构
+
+主要文件说明：
+
+- [main.py](/Users/chao/gitee/xiongan-clean-hub/main.py)：主窗口、菜单、导入流程、清标入口
+- [read_data.py](/Users/chao/gitee/xiongan-clean-hub/read_data.py)：XML 读取、基础解密逻辑
+- [utils.py](/Users/chao/gitee/xiongan-clean-hub/utils.py)：文档生成、比对和各类工具函数
+- [result.py](/Users/chao/gitee/xiongan-clean-hub/result.py)：清标结果页、中标分析页、导出逻辑
+- [updater.py](/Users/chao/gitee/xiongan-clean-hub/updater.py)：版本下载与更新窗口
+- [statics.py](/Users/chao/gitee/xiongan-clean-hub/statics.py)：版本号、软件名等静态配置
+- [app_paths.py](/Users/chao/gitee/xiongan-clean-hub/app_paths.py)：资源路径解析
+- [对比清单差异性.py](/Users/chao/gitee/xiongan-clean-hub/对比清单差异性.py)：投标清单对齐辅助逻辑
+- [icons](/Users/chao/gitee/xiongan-clean-hub/icons)：应用图标与界面资源
+
+仓库根目录中还保留了一些历史脚本或辅助脚本，例如 `build_release.py`、`new.py`、`pngjpeg.py`、`其他暂时用不到的代码.py`。这些文件不属于主程序运行链路。
+
+## 打包
+
+项目里已经包含 macOS 打包相关脚本：
+
+- [MyApp.spec](/Users/chao/gitee/xiongan-clean-hub/MyApp.spec)
+- [build_release.py](/Users/chao/gitee/xiongan-clean-hub/build_release.py)
+- [make_dmg.sh](/Users/chao/gitee/xiongan-clean-hub/make_dmg.sh)
+
+macOS 打包思路大致是：
+
+```bash
+python build_release.py
+```
+
+如果你要自己打包，通常还需要预先安装：
+
+- `pyinstaller`
+- macOS 下可用的 `hdiutil`
+- 用于设置 DMG 布局的 `osascript`
+
+注意：仓库中的打包脚本更偏向作者本机工作流，不是完全通用的一键跨平台发布方案。
+
+## 开发说明
+
+### 基础检查
+
+可以先做最基本的语法检查：
+
+```bash
+python -m py_compile main.py utils.py result.py read_data.py
+```
+
+目前项目没有完善的自动化测试，功能验证仍以手工导入和界面操作为主。
+
+如果需要准备本地测试数据，建议自行放在未纳入版本控制的目录中；当前仓库已将 `source/` 与 `data_test/` 加入忽略规则，避免测试数据再次进入版本库。
+
+## 已知限制
+
+- 业务规则明显依赖当前 XML 数据格式
+- 自动化测试不足，回归验证主要靠人工操作
+- 更新依赖外部服务，离线环境无法完整验证
+- 一些更新相关配置当前仍在代码中硬编码，后续仍建议抽离
+- 根目录仍存在少量历史脚本，后续可继续整理
+
+## 后续建议
+
+如果继续完善，优先级比较高的方向通常是：
+
+- 把更新相关配置抽离到独立配置层
+- 增加最基本的样例数据回归测试
+- 把 UI 逻辑和业务计算逻辑再拆开一点
+- 统一日志输出，减少 `print`
+
+## 联系方式
+
+- 作者：Willcha
+- 邮箱：wl201808087@icloud.com
+- 微信：W851172873
